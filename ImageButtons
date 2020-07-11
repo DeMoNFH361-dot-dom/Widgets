@@ -29,4 +29,20 @@ val backButton: ImageButton = findViewById(R.id.backButton) as ImageButton
         /////////////////////////////////////////////////////////////////////////////
         -----------------------------------------------------------------------------
         
+        //This image button refreshes the activity
+        
+        val refreshButton: ImageButton = findViewById(R.id.refreshButton) as ImageButton
+        refreshButton.setOnClickListener {
+
+            val refreshActivity = intent
+            finish()
+            startActivity(refreshActivity)
+        }
+        
+        //The XML is exactly the same as the above button.
+        
+        
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        
         
