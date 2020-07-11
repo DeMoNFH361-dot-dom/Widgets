@@ -1,6 +1,6 @@
 
 
-//This uses an image button to call for a new activity
+//This uses an image button to call for a new activity .kt
 
 val backButton: ImageButton = findViewById(R.id.backButton) as ImageButton
         backButton.setOnClickListener {
@@ -9,3 +9,24 @@ val backButton: ImageButton = findViewById(R.id.backButton) as ImageButton
             startActivity(intent)
         }
     }
+    
+    //Same value as above but in XML
+    <ImageButton
+        android:id="@+id/changeIP"
+        android:layout_width="74dp"
+        android:layout_height="65dp"
+        android:background="@android:color/background_dark"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.178"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.761"
+        app:srcCompat="@drawable/changeipnew" />
+        
+        
+        /////////////////////////////////////////////////////////////////////////////
+        -----------------------------------------------------------------------------
+        
+        
