@@ -1,0 +1,76 @@
+//This is the wifiManager function. It is designed to start the wifiManager function at the beguining of the actvity.
+//This uses a set of strings to display the current network information, like connectivity info, IP address, MAC address,
+//along with other valueable information.
+
+//Intialize the WifiManager
+lateinit var wifiManager: WifiManager
+-------------------------------------
+
+//Name the value of the needed TextViews.
+
+val textSsid: TextView = findViewById(R.id.textSSID)
+        val textBssid: TextView = findViewById(R.id.textBSSID)
+        val textIPADDRESS: TextView = findViewById(R.id.textIPADDRESS)
+        val textRSSI: TextView = findViewById(R.id.textRSSI)
+        val textLINKSPEED: TextView = findViewById(R.id.textLINKSPEED)
+        val textMACADDRESS: TextView = findViewById(R.id.textMACADDRESS)
+        val textGATEWAY: TextView = findViewById (R.id.textGATEWAY)
+        val res = this.resources
+
+
+-------------------------------------
+
+//Translate the acquired information to a legitable form with a function
+
+fun ipToString(i: Int): String {
+            return (i and 0xFF).toString() + "." +
+                    (i shr 8 and 0xFF) + "." +
+                    (i shr 16 and 0xFF) + "." +
+                    (i shr 24 and 0xFF)
+        }
+-------------------------------------
+
+//Translate the phone's InetAddress with the following Val string
+
+val macAddress: String get() {
+        try {
+            val all = Collections.list(NetworkInterface.getNetworkInterfaces())
+            for (nif in all) {
+                if (!nif.name.equals("wlan0", ignoreCase = true)) continue
+
+                val macBytes = nif.hardwareAddress ?: return ""
+                val res1 = StringBuilder()
+                for (b in macBytes) {
+                    res1.append(String.format("%02X:", b))
+                }
+                if (res1.length > 0) {
+                    res1.deleteCharAt(res1.length - 1)
+                }
+                return res1.toString()
+            }
+        } catch (ex: Exception) {
+        }
+        return "02:00:00:00:00:00"
+    }
+---------------------------------------
+
+//Use the WifiManager to display all the needed network information with the following code:
+
+wifiManager = this.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        if (wifiManager.isWifiEnabled == true) {
+            val wifiInfo = wifiManager.connectionInfo
+            val wifiInfo2: DhcpInfo = wifiManager.dhcpInfo
+            textSsid.setText(res.getString(R.string.stringSSID, wifiInfo.ssid))
+            textBssid.setText(res.getString(R.string.stringBSSID, wifiInfo.bssid))
+            textIPADDRESS.setText(res.getString(R.string.stringWifiIPADDRESS, ipToString(wifiInfo.ipAddress)))
+            textRSSI.setText(res.getString(R.string.stringRSSI, wifiInfo.rssi))
+            textLINKSPEED.setText(res.getString(R.string.stringLINKSPEED, wifiInfo.linkSpeed))
+            textMACADDRESS.setText(res.getString(R.string.stringMACADDRESS, macAddress))
+            textGATEWAY.setText(res.getString(R.string.stringGateway, ipToString(wifiInfo2.gateway)))
+        }
+        else {
+            textSsid.setText(res.getString(R.string.wifiStatusNotConnected))
+        }
+        
+    ------------------------------------
+
